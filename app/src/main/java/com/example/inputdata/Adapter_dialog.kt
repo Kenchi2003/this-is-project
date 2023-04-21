@@ -22,4 +22,5 @@ class Adapter_dialog(private val item: Array<String>, val context: Context) : Re
     class VHolder(v: View) : RecyclerView.ViewHolder(v){
         val textShow : TextView = v.findViewById(R.id.textView_show)
     }
+    //dgrhr
 }
