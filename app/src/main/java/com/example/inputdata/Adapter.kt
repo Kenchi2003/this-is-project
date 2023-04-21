@@ -1,4 +1,4 @@
-package com.example.inputdata
+package com.example.inputdata.com.example.inputdata
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.inputdata.com.example.inputdata.Adapter_dialog
+import com.example.inputdata.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class Adapter(private val item: Array<String>, private val context: Context) : RecyclerView.Adapter<Adapter.VHolder>() {
@@ -33,7 +33,9 @@ class Adapter(private val item: Array<String>, private val context: Context) : R
     }
     //ฟังก์ชัน Dialog
     private fun showCurvedAlertDialog() {
-        val  dialog : androidx.appcompat.app.AlertDialog = MaterialAlertDialogBuilder(context, R.style.RoundedMaterialDialog)
+        val  dialog : androidx.appcompat.app.AlertDialog = MaterialAlertDialogBuilder(context,
+            R.style.RoundedMaterialDialog
+        )
             .setView(R.layout.fragment_dialog)
             .show()
         dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
