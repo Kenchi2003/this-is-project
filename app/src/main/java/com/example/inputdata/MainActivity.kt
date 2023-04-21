@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isEmpty
 import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -48,6 +49,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var spinvalue: Spinner
     private lateinit var mTextshow: TextView
 
+    private lateinit var SMOKE: String
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SimpleDateFormat", "WeekBasedYear", "SetTextI18n", "MissingInflatedId")
@@ -75,9 +77,17 @@ class MainActivity : AppCompatActivity() {
 
 
         mTextshow = findViewById(R.id.Showdata)
+
         mRadioGroup.setOnCheckedChangeListener{ group,checkedId ->
-            Smok.isEnabled = checkedId != R.id.radioNoSmoke
+            if (checkedId == R.id.radioNoSmoke){
+                Smok.hint = "ไม่มีระบบควบคุมเขม่าควัน"
+                Smok.isEnabled = false
+                SMOKE = Smok.hint.toString()
+            }else{
+                SMOKE = Smok.text.toString()
+            }
         }
+
 
         //วันที่
         val tbd: ThaiBuddhistDate = ThaiBuddhistDate.now(ZoneId.systemDefault())
@@ -111,8 +121,10 @@ class MainActivity : AppCompatActivity() {
 
         }
         Sendinformation.setOnClickListener {
-            showCurvedAlertDialog()
+            showCurvedAlertDialog(SMOKE)
         }
+        Result1.text = ""
+        Result2.text = ""
 
     }
     private fun senInfor(OldText: String) {
@@ -188,15 +200,39 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivity(intent)
     }
-    private fun showCurvedAlertDialog() {
-        val  dialog : androidx.appcompat.app.AlertDialog = MaterialAlertDialogBuilder(this, R.style.RoundedMaterialDialog)
-            .setView(R.layout.dialog)
-            .show()
-        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        // ปิด Dialog
-        dialog.findViewById<View>(R.id.button_close)!!.setOnClickListener {
-            val intent = Intent(this@MainActivity,HistoyActivity::class.java)
-            startActivity(intent)
+    private fun showCurvedAlertDialog(SMOKE:String) {
+        appdata = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java, "User.db"
+        ).build()
+        val Inum = INum.toString()
+        val Power = spinpower.selectedItem.toString()
+        val SMOKE = SMOKE
+        val DATE = viewDate.text.toString()
+        val INFOR = mTextshow.text.toString()
+        val result1 = Result1.text.toString()
+        val result2 = Result2.text.toString()
+        CoroutineScope(Dispatchers.IO).launch {
+            val infor = sentdata(0, Inum, Power, SMOKE, DATE, INFOR, result1, result2)
+            appdata.sentdataDAO().insertsentdata(infor)
+//            val ID = appdata.informationDAO().getinforid()
+//            val dataList: LiveData<Information> = appdata.informationDAO().getDATA(ID)
+            val dialog: androidx.appcompat.app.AlertDialog =
+                MaterialAlertDialogBuilder(this@MainActivity, R.style.RoundedMaterialDialog)
+                    .setView(R.layout.dialog)
+                    .show()
+            dialog.window?.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            // ปิด Dialog
+            dialog.findViewById<View>(R.id.button_close)!!.setOnClickListener {
+
+                val intent = Intent(this@MainActivity, HistoyActivity::class.java)
+                intent.putExtra("MyKey1", DATE)
+                startActivity(intent)
+                finish()
+            }
         }
     }
 }

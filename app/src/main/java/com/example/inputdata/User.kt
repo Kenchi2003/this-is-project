@@ -30,6 +30,7 @@ data class sentdata(
     val fuel: String,//เชื้อเพลิง
     val CtrlSmoke: String,//ระบบควบคุมเข่ม่าควัน
     val date: String,//วันที่
-    val resultopacity: Int,//ผลรวมความทึบแสง
-    val numsavetime: Int//จำนวนครั้งที่จดบันทึก
+    val information: String,
+    val resultopacity: String,//ผลรวมความทึบแสง
+    val numsavetime: String//จำนวนครั้งที่จดบันทึก
 )
