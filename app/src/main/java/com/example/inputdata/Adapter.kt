@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.inputdata.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class Adapter(private val item: Array<String>, private val context: Context) : RecyclerView.Adapter<Adapter.VHolder>() {
+class Adapter(private val item: String, private val context: Context) : RecyclerView.Adapter<Adapter.VHolder>() {
     override fun getItemCount(): Int {
         return item.size
     }
