@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var spinsec: Spinner
     private lateinit var spinvalue: Spinner
     private lateinit var mTextshow: TextView
+    private lateinit var editText: EditText
 
     private lateinit var SMOKE: String
 
@@ -72,6 +73,7 @@ class MainActivity : AppCompatActivity() {
         mRadioGroup = findViewById(R.id.RGSmoke)
         plusdata = findViewById(R.id.PutData)
         Sendinformation = findViewById(R.id.Sentdata)
+        editText = findViewById(R.id.editText)
 
         Camera = findViewById(R.id.IconCam)
 
@@ -163,6 +165,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun spin(){
         val item = listOf("เลือกประเภทเชื้อเพลิง","ใช้น้ำมันดีเซลเป็นเชื้อเพลิง","ใช้น้ำมันเตาเป็นเชื้อเพลิง","ใช้ถ่านหิน","ใช้เศษไม้ฟืนเป็นเชื้อเพลิง","อื่น ๆ")
+        spinpower.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if(parent?.getItemAtPosition(position).toString() == "อื่น ๆ"){
+                    editText.visibility = View.VISIBLE //แสดง EditText เมื่อเลือก "อื่น ๆ"
+                }else{
+                    editText.visibility = View.GONE //ซ่อน EditText เมื่อไม่ได้เลือก "อื่น ๆ"
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Do nothing
+            }
+        }
         val adapter = ArrayAdapter(baseContext,
             android.R.layout.simple_spinner_dropdown_item,
             item)
