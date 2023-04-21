@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <vector
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:aapt="http://schemas.android.com/aapt"
+            android:width="71dp"
+            android:height="34dp"
+            android:viewportWidth="71"
+            android:viewportHeight="34"
+            >
+            <group>
+                <clip-path
+                    android:pathData="M7 4H64C65.6569 4 67 5.34315 67 7V27C67 28.6569 65.6569 30 64 30H7C5.34315 30 4 28.6569 4 27V7C4 5.34315 5.34315 4 7 4Z"
+                    />
+            </group>
+            <group>
+                <clip-path
+                    android:pathData="M0 0V34H71V0M7 4H64C65.6569 4 67 5.34315 67 7V27C67 28.6569 65.6569 30 64 30H7C5.34315 30 4 28.6569 4 27V7C4 5.34315 5.34315 4 7 4Z"
+                    />
+                <path
+                    android:pathData="M7 4H64C65.6569 4 67 5.34315 67 7V27C67 28.6569 65.6569 30 64 30H7C5.34315 30 4 28.6569 4 27V7C4 5.34315 5.34315 4 7 4Z"
+                    android:strokeWidth="1"
+                    android:strokeColor="#C8C8C8"
+                    />
+                <path
+                    android:pathData="M7 4H64C65.6569 4 67 5.34315 67 7V27C67 28.6569 65.6569 30 64 30H7C5.34315 30 4 28.6569 4 27V7C4 5.34315 5.34315 4 7 4Z"
+                    android:strokeWidth="3"
+                    android:strokeColor="#33000000"
+                    />
+            </group>
+        </vector>
+    </item>
+</selector>

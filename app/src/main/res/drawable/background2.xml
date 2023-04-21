@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+
+        <!-- drawable/ellipse_1.xml -->
+        <vector xmlns:aapt="http://schemas.android.com/aapt"
+            android:width="226dp"
+            android:height="226dp"
+            android:viewportWidth="226"
+            android:viewportHeight="226"
+            >
+            <group>
+                <clip-path
+                    android:pathData="M226 113C226 175.408 175.408 226 113 226C50.5918 226 0 175.408 0 113C0 50.5918 50.5918 0 113 0C175.408 0 226 50.5918 226 113Z"
+                    />
+                <group
+                    android:translateX="1"
+                    android:translateY="0"
+                    android:pivotX="113"
+                    android:pivotY="113"
+                    android:scaleX="2"
+                    android:scaleY="2"
+                    android:rotation="90"
+                    >
+                    <path
+                        android:pathData="M0 0V226H226V0"
+                        >
+                        <aapt:attr name="android:fillColor">
+                            <gradient
+                                android:type="radial"
+                                android:centerX="113"
+                                android:centerY="113"
+                                android:gradientRadius="56.5"
+                                >
+                                <item
+                                    android:color="#CC6E18F5"
+                                    android:offset="0.219"
+                                    />
+                                <item
+                                    android:color="#6E18F5"
+                                    android:offset="0.839"
+                                    />
+                            </gradient>
+                        </aapt:attr>
+                    </path>
+                </group>
+            </group>
+        </vector>
+    </item>
+</selector>
