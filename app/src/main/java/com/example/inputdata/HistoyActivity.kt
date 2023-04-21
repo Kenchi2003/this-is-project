@@ -27,6 +27,9 @@ class HistoyActivity : AppCompatActivity() {
         setContentView(R.layout.activity_histoy)
         recyclerView = findViewById(R.id.recyclerView_record)
 
+        val DATETime = intent.getStringExtra("MyKey1")
+        val date = DATETime.toString()
+        
         recyclerView.layoutManager = LinearLayoutManager(this)
         val  itemAdapter = Adapter(date,this)
 

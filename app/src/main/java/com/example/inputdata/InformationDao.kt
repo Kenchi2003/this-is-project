@@ -18,24 +18,4 @@ interface InformationDao {
     @Query("SELECT MAX(userId) FROM infor")
     fun getinforid(): Int
 
-//    @Query("SELECT MAX(Hr) FROM infor")
-//    fun getinforHR(): Int
-//
-//    @Query("SELECT MAX(Min) FROM infor")
-//    fun getinforMIN(): Int
-//
-//    @Query("SELECT MAX(Sec) FROM infor")
-//    fun getinforSEC(): Int
-//
-//    @Query("SELECT MAX(value) FROM infor")
-//    fun getinforVALUE(): Int
-
-
-//    @Delete
-//    fun deleteinfor(IFM: Information)
-//
-//    @Update
-//    fun updateInfor(IFM: Information)
-//
-
 }
