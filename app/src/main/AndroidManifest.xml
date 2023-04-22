@@ -11,12 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Inputdata"
         tools:targetApi="31">
+
         <activity
             android:name=".HistoyActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="false"></activity>
+            android:exported="true" />
         <activity
             android:name=".Loglin"
             android:exported="true">

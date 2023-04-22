@@ -3,7 +3,6 @@ package com.example.inputdata
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Bitmap
 import android.icu.text.SimpleDateFormat
 import android.icu.util.BuddhistCalendar
 import android.icu.util.Calendar
@@ -15,7 +14,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isEmpty
 import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
