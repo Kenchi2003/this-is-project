@@ -1,6 +1,8 @@
 package com.example.inputdata
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -11,6 +13,7 @@ import androidx.room.Room
 import com.example.inputdata.Adapter
 import com.example.inputdata.AppDatabase
 import com.example.inputdata.R
+import kotlinx.coroutines.CoroutineScope
 
 class HistoyActivity : AppCompatActivity() {
     private lateinit var appdata: AppDatabase
@@ -28,7 +31,10 @@ class HistoyActivity : AppCompatActivity() {
             val date: List<String> = appdata.sentdataDAO().getDATE()
             val ID = appdata.sentdataDAO().getID()
             val dateID = appdata.sentdataDAO().getDateforID(ID)
-            val getInformationForID = appdata.sentdataDAO().getInformationforID(ID)
+            val getInformationForID = appdata.sentdataDAO().getInformation(ID)
+            CoroutineScope(Dispatchers.Main).launch {
+                Toast.makeText(this@HistoyActivity, getInformationForID, Toast.LENGTH_SHORT).show()
+            }
             launch(Dispatchers.Main) {
                 recyclerView.layoutManager = LinearLayoutManager(this@HistoyActivity)
                 val  itemAdapter = Adapter(date,this@HistoyActivity,ID,dateID,getInformationForID)

@@ -15,7 +15,7 @@ class Adapter(private val item: List<String>,
               private val context: Context ,
               private val ID:Int,
               private val dataForID:String,
-              private val inforID:List<String>) : RecyclerView.Adapter<Adapter.VHolder>() {
+              private val inforID:String) : RecyclerView.Adapter<Adapter.VHolder>() {
     override fun getItemCount(): Int {
         return item.size
     }
@@ -48,7 +48,7 @@ class Adapter(private val item: List<String>,
         // RecyclerView ใน Dialog
         val recyclerView: RecyclerView = dialog.findViewById(R.id.recyclerView_1)!!
         recyclerView.layoutManager = LinearLayoutManager(context)
-        val  itemAdapter = Adapter_dialog(context,dataForID,inforID)
+        val  itemAdapter = Adapter_dialog(item,inforID)
         recyclerView.adapter = itemAdapter
         // ผลรวมความทึบเเสงที่อ่านได้ ใน Dialog
         val messageTextView = dialog.findViewById<TextView>(R.id.TextDate)
