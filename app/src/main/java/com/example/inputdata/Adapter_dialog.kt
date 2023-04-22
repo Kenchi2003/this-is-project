@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inputdata.R
 
-class Adapter_dialog(private val item: List<String>, val context: Context, dataForID: String) : RecyclerView.Adapter<Adapter_dialog.VHolder>() {
+class Adapter_dialog(val context: Context, dataForID: String, private val inforID: List<String>) : RecyclerView.Adapter<Adapter_dialog.VHolder>() {
     override fun getItemCount(): Int {
-        return item.size
+        return inforID.size
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.layout_showrecord, parent, false)
@@ -17,7 +17,7 @@ class Adapter_dialog(private val item: List<String>, val context: Context, dataF
     }
 
     override fun onBindViewHolder(holder: VHolder, position: Int) {
-        holder.textShow.text = item[position]
+        holder.textShow.text = inforID[position]
     }
     class VHolder(v: View) : RecyclerView.ViewHolder(v){
         val textShow : TextView = v.findViewById(R.id.textView_show)
