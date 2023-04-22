@@ -31,10 +31,8 @@ class HistoyActivity : AppCompatActivity() {
             val ID = appdata.sentdataDAO().getID()
             val date: List<String> = appdata.sentdataDAO().getDateforID()
             val DateID = appdata.sentdataDAO().getDateID(ID)
-            val information = appdata.sentdataDAO().getInformation(ID)
-            CoroutineScope(Dispatchers.Main).launch {
-                Toast.makeText(this@HistoyActivity, information, Toast.LENGTH_SHORT).show()
-            }
+            val information: List<String> = appdata.sentdataDAO().getInformation()
+
             launch(Dispatchers.Main) {
                 recyclerView.layoutManager = LinearLayoutManager(this@HistoyActivity)
                 val  itemAdapter = Adapter(date,this@HistoyActivity,DateID,information)
