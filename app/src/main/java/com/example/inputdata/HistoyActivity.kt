@@ -28,10 +28,9 @@ class HistoyActivity : AppCompatActivity() {
         ).build()
 
         GlobalScope.launch(Dispatchers.IO) {
-            val date: List<String> = appdata.sentdataDAO().getDATE()
             val ID = appdata.sentdataDAO().getID()
-            val dateID = appdata.sentdataDAO().getDateforID(ID)
-            val getInformationForID = appdata.sentdataDAO().getInformation(ID)
+            val date: List<String> = appdata.sentdataDAO().getDateforID(ID)
+            val information = appdata.sentdataDAO().getInformation(ID)
             CoroutineScope(Dispatchers.Main).launch {
                 Toast.makeText(this@HistoyActivity, getInformationForID, Toast.LENGTH_SHORT).show()
             }

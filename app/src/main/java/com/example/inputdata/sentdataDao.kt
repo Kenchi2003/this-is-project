@@ -19,7 +19,7 @@ interface sentdataDao {
     @Query("SELECT date FROM Sendata")
     fun getDATE(): List<String>
 
-    @Query("SELECT Id FROM Sendata WHERE ")
+    @Query("SELECT Id FROM Sendata")
     fun getID(): Int
 
     @Query("SELECT date FROM Sendata WHERE Id =:mid")

@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.inputdata.com.example.inputdata.Adapter_dialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class Adapter(private val item: List<String>,
@@ -46,10 +44,8 @@ class Adapter(private val item: List<String>,
             .show()
         dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         // RecyclerView ใน Dialog
-        val recyclerView: RecyclerView = dialog.findViewById(R.id.recyclerView_1)!!
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        val  itemAdapter = Adapter_dialog(item,inforID)
-        recyclerView.adapter = itemAdapter
+        val show: TextView = dialog.findViewById(R.id.ShowResalt)!!
+        val SHOW = show.text.toString()
         // ผลรวมความทึบเเสงที่อ่านได้ ใน Dialog
         val messageTextView = dialog.findViewById<TextView>(R.id.TextDate)
         if (messageTextView != null) {

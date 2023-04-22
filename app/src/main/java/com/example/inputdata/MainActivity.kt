@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         Camera = findViewById(R.id.IconCam)
 
 
-        mTextshow = findViewById(R.id.Showdata)
+        mTextshow = findViewById(R.id.ShowResalt)
 
 
         mRadioGroup.setOnCheckedChangeListener{ group,checkedId ->
@@ -106,6 +106,9 @@ class MainActivity : AppCompatActivity() {
         viewDate.text = "วันที่ " + day.replace(" ", " ") +
                 " เดือน " + month.replace(" "," ") +
                 " พ.ศ. " + year.replace(" "," ")
+
+
+
 
         spin()
         spinHR()
