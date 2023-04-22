@@ -244,7 +244,7 @@ class MainActivity : AppCompatActivity() {
             dialog.findViewById<View>(R.id.button_close)!!.setOnClickListener {
 
                 val intent = Intent(this@MainActivity, HistoyActivity::class.java)
-                intent.putExtra("MyKey1", DATE)
+                intent.putExtra("MyKey1", DATE.toString())
                 startActivity(intent)
                 finish()
             }

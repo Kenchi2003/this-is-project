@@ -1,4 +1,4 @@
-package com.example.inputdata.com.example.inputdata
+package com.example.inputdata
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,15 +8,16 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.inputdata.R
+import com.example.inputdata.com.example.inputdata.Adapter_dialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class Adapter(private val item: String, private val context: Context) : RecyclerView.Adapter<Adapter.VHolder>() {
+class Adapter(private val item: List<sentdata>, private val context: Context) : RecyclerView.Adapter<Adapter.VHolder>() {
     override fun getItemCount(): Int {
         return item.size
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.layout_record, parent, false)
+        val v = LayoutInflater.from(parent.context)
+            .inflate(R.layout.layout_record, parent, false)
         val holder = VHolder(v)
         holder.imageView.setOnClickListener {
             showCurvedAlertDialog()
@@ -24,7 +25,7 @@ class Adapter(private val item: String, private val context: Context) : Recycler
         return holder
     }
     override fun onBindViewHolder(holder: VHolder, position: Int) {
-        holder.textDate.text = item[position]
+        holder.textDate.text = item[position].toString()
 
     }
     class VHolder(v: View) : RecyclerView.ViewHolder(v){
