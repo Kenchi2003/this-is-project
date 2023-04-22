@@ -23,7 +23,7 @@ interface sentdataDao {
     fun getID(): Int
 
     @Query("SELECT date FROM Sendata WHERE Id =:mid")
-    fun getDateforID(mid: Int): String
+    fun getDateforID(mid: Int): List<String>
 
     @Query("SELECT information FROM Sendata WHERE Id =:mid")
     fun getInformation(mid: Int): String

@@ -32,7 +32,7 @@ class HistoyActivity : AppCompatActivity() {
             val date: List<String> = appdata.sentdataDAO().getDateforID(ID)
             val information = appdata.sentdataDAO().getInformation(ID)
             CoroutineScope(Dispatchers.Main).launch {
-                Toast.makeText(this@HistoyActivity, getInformationForID, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@HistoyActivity, information, Toast.LENGTH_SHORT).show()
             }
             launch(Dispatchers.Main) {
                 recyclerView.layoutManager = LinearLayoutManager(this@HistoyActivity)

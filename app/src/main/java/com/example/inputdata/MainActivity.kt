@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var editText: EditText
 
 
+    private var formatdate : String = ""
     private var SMOKE: String = ""
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -107,7 +108,14 @@ class MainActivity : AppCompatActivity() {
                 " เดือน " + month.replace(" "," ") +
                 " พ.ศ. " + year.replace(" "," ")
 
+        val monthFormat1 = SimpleDateFormat("MM", Locale("th"))
+        monthFormat1.calendar = BuddhistCalendar()
+        val month1 = monthFormat1.format(calendar.time)
 
+
+        val formatdate = day.replace(" ", " ") +
+                "/" + month1.replace(" "," ") +
+                "/" + year.replace(" "," ")
 
 
         spin()
@@ -126,7 +134,7 @@ class MainActivity : AppCompatActivity() {
 
         }
         Sendinformation.setOnClickListener {
-            showCurvedAlertDialog(SMOKE)
+            showCurvedAlertDialog(SMOKE,DATE1 = formatdate)
         }
         Result1.text = ""
         Result2.text = ""
@@ -221,7 +229,7 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivity(intent)
     }
-    private fun showCurvedAlertDialog(SMOKE:String) {
+    private fun showCurvedAlertDialog(SMOKE:String,DATE1:String) {
         appdata = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java, "User.db"
@@ -229,7 +237,7 @@ class MainActivity : AppCompatActivity() {
         val Inum = INum.toString()
         val Power = spinpower.selectedItem.toString()
         val SMOKE = SMOKE
-        val DATE = viewDate.text.toString()
+        val DATE = DATE1
         val INFOR = mTextshow.text.toString()
         val result1 = Result1.text.toString()
         val result2 = Result2.text.toString()
@@ -251,7 +259,6 @@ class MainActivity : AppCompatActivity() {
                 dialog.findViewById<View>(R.id.button_close)!!.setOnClickListener {
 
                     val intent = Intent(this@MainActivity, HistoyActivity::class.java)
-                    intent.putExtra("MyKey1", DATE.toString())
                     startActivity(intent)
                     finish()
                 }
