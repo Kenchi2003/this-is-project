@@ -17,7 +17,7 @@ interface sentdataDao {
     fun getData(mID: Int): LiveData<sentdata>
 
     @Query("SELECT date FROM Sendata")
-    fun getDATE(): List<sentdata>
+    fun getDATE(): List<String>
 
     @Query("SELECT MAX(Id) FROM Sendata")
     fun getsentid(): Int

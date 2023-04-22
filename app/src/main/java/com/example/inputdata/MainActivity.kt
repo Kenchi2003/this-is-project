@@ -80,15 +80,7 @@ class MainActivity : AppCompatActivity() {
 
         mTextshow = findViewById(R.id.Showdata)
 
-        mRadioGroup.setOnCheckedChangeListener{ group,checkedId ->
-            if (checkedId == R.id.radioNoSmoke){
-                Smok.hint = "ไม่มีระบบควบคุมเขม่าควัน"
-                Smok.isEnabled = false
-                SMOKE = Smok.hint.toString()
-            }else{
-                SMOKE = Smok.text.toString()
-            }
-        }
+
 
 
         //วันที่
@@ -160,6 +152,18 @@ class MainActivity : AppCompatActivity() {
                         mTextshow.text = stringBuilder.toString()
                 })
             }
+        }
+    }
+    private fun checkIDradio(Radio:RadioGroup):String{
+        mRadioGroup.setOnCheckedChangeListener{group,checkedId ->
+            if (checkedId == R.id.radioNoSmoke){
+                Smok.hint = "ไม่มีระบบควบคุมเขม่าควัน"
+                Smok.isEnabled = false
+                val SMOKE = Smok.hint.toString()
+            }else{
+                val SMOKE = Smok.text.toString()
+            }
+
         }
     }
 

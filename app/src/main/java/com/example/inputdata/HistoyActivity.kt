@@ -19,7 +19,7 @@ class HistoyActivity : AppCompatActivity() {
             applicationContext,
             AppDatabase::class.java, "User.db"
         ).build()
-        val date: List<sentdata> = appdata.sentdataDAO().getDATE()
+        val date: List<String> = appdata.sentdataDAO().getDATE()
         
         recyclerView.layoutManager = LinearLayoutManager(this)
         val  itemAdapter = Adapter(date,this@HistoyActivity)
