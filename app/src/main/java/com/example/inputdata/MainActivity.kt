@@ -50,7 +50,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mTextshow: TextView
     private lateinit var editText: EditText
 
-    private lateinit var SMOKE: String
+
+    private var SMOKE: String = ""
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SimpleDateFormat", "WeekBasedYear", "SetTextI18n", "MissingInflatedId")
@@ -81,6 +82,15 @@ class MainActivity : AppCompatActivity() {
         mTextshow = findViewById(R.id.Showdata)
 
 
+        mRadioGroup.setOnCheckedChangeListener{ group,checkedId ->
+            if (checkedId == R.id.radioNoSmoke){
+                Smok.hint = "ไม่มีระบบควบคุมเขม่าควัน"
+                Smok.isEnabled = false
+                SMOKE = Smok.hint.toString()
+            }else{
+                SMOKE = Smok.text.toString()
+            }
+        }
 
 
         //วันที่
@@ -154,17 +164,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    private fun checkIDradio(Radio:RadioGroup):String{
-        mRadioGroup.setOnCheckedChangeListener{group,checkedId ->
-            if (checkedId == R.id.radioNoSmoke){
-                Smok.hint = "ไม่มีระบบควบคุมเขม่าควัน"
-                Smok.isEnabled = false
-                val SMOKE = Smok.hint.toString()
-            }else{
-                val SMOKE = Smok.text.toString()
-            }
+    private fun checkIDradio(){
 
-        }
     }
 
     private fun spin(){
@@ -234,23 +235,25 @@ class MainActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             val infor = sentdata(0, Inum, Power, SMOKE, DATE, INFOR, result1, result2)
             appdata.sentdataDAO().insertsentdata(infor)
-//            val ID = appdata.informationDAO().getinforid()
-//            val dataList: LiveData<Information> = appdata.informationDAO().getDATA(ID)
-            val dialog: androidx.appcompat.app.AlertDialog =
-                MaterialAlertDialogBuilder(this@MainActivity, R.style.RoundedMaterialDialog)
-                    .setView(R.layout.dialog)
-                    .show()
-            dialog.window?.setLayout(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            // ปิด Dialog
-            dialog.findViewById<View>(R.id.button_close)!!.setOnClickListener {
 
-                val intent = Intent(this@MainActivity, HistoyActivity::class.java)
-                intent.putExtra("MyKey1", DATE.toString())
-                startActivity(intent)
-                finish()
+            // สร้าง Handler บน Main Thread เพื่อปิด Dialog
+            runOnUiThread {
+                val dialog: androidx.appcompat.app.AlertDialog =
+                    MaterialAlertDialogBuilder(this@MainActivity, R.style.RoundedMaterialDialog)
+                        .setView(R.layout.dialog)
+                        .show()
+                dialog.window?.setLayout(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+
+                dialog.findViewById<View>(R.id.button_close)!!.setOnClickListener {
+
+                    val intent = Intent(this@MainActivity, HistoyActivity::class.java)
+                    intent.putExtra("MyKey1", DATE.toString())
+                    startActivity(intent)
+                    finish()
+                }
             }
         }
     }
