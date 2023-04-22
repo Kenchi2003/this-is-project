@@ -48,7 +48,7 @@ class Adapter(private val item: List<String>,
         // RecyclerView ใน Dialog
         val recyclerView: RecyclerView = dialog.findViewById(R.id.recyclerView_1)!!
         recyclerView.layoutManager = LinearLayoutManager(context)
-        val  itemAdapter = Adapter_dialog(context,dataForID,inforID)
+        val  itemAdapter = Adapter_dialog(inforID)
         recyclerView.adapter = itemAdapter
         // ผลรวมความทึบเเสงที่อ่านได้ ใน Dialog
         val messageTextView = dialog.findViewById<TextView>(R.id.TextDate)
