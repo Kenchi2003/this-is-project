@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inputdata.R
 
-class Adapter_dialog(private val item: List<String>, val context: Context) : RecyclerView.Adapter<Adapter_dialog.VHolder>() {
+class Adapter_dialog(private val item: List<String>, val context: Context, dataForID: String) : RecyclerView.Adapter<Adapter_dialog.VHolder>() {
     override fun getItemCount(): Int {
         return item.size
     }
