@@ -49,7 +49,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var editText: EditText
 
 
-    private var formatdate : String = ""
     private var SMOKE: String = ""
 
     @RequiresApi(Build.VERSION_CODES.O)
