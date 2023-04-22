@@ -26,9 +26,11 @@ class HistoyActivity : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.IO) {
             val date: List<String> = appdata.sentdataDAO().getDATE()
+            val ID = appdata.sentdataDAO().getID()
+            val dateID = appdata.sentdataDAO().getDateforID(ID)
             launch(Dispatchers.Main) {
                 recyclerView.layoutManager = LinearLayoutManager(this@HistoyActivity)
-                val  itemAdapter = Adapter(date,this@HistoyActivity)
+                val  itemAdapter = Adapter(date,this@HistoyActivity,ID,dateID)
                 recyclerView.adapter = itemAdapter
             }
         }

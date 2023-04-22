@@ -1,6 +1,7 @@
 package com.example.inputdata
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.inputdata.com.example.inputdata.Adapter_dialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class Adapter(private val item: List<String>, private val context: Context) : RecyclerView.Adapter<Adapter.VHolder>() {
+class Adapter(private val item: List<String>,
+              private val context: Context ,
+              private val ID: Int,
+              private val dataForID:String) : RecyclerView.Adapter<Adapter.VHolder>() {
     override fun getItemCount(): Int {
         return item.size
     }
@@ -24,8 +28,9 @@ class Adapter(private val item: List<String>, private val context: Context) : Re
         }
         return holder
     }
-    override fun onBindViewHolder(holder: VHolder, position: Int) {
-        holder.textDate.text = item[position].toString()
+
+    override fun onBindViewHolder(holder: VHolder, position:Int) {
+        holder.textDate.text = item[position]
 
     }
     class VHolder(v: View) : RecyclerView.ViewHolder(v){
