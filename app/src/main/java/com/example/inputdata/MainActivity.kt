@@ -165,9 +165,13 @@ class MainActivity : AppCompatActivity() {
                         information.Min,
                         information.Sec,
                         information.value)
-                        val TextShow = "$OldText \n" + "$formattedText"
-                        stringBuilder.append(TextShow)
-                        mTextshow.text = stringBuilder.toString()
+                    val TextShow = if (OldText.isEmpty()) {
+                        formattedText
+                    } else {
+                        "$OldText \n$formattedText"
+                    }
+                    stringBuilder.append(TextShow)
+                    mTextshow.text = stringBuilder.toString()
                 })
             }
         }
