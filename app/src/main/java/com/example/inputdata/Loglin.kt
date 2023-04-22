@@ -21,7 +21,7 @@ class Loglin : AppCompatActivity() {
     private lateinit var mWarning: TextView
 
     private lateinit var BTLog: Button
-
+//
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loglin)
