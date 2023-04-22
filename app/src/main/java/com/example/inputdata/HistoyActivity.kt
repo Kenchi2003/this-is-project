@@ -29,14 +29,15 @@ class HistoyActivity : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.IO) {
             val ID = appdata.sentdataDAO().getID()
-            val date: List<String> = appdata.sentdataDAO().getDateforID(ID)
+            val date: List<String> = appdata.sentdataDAO().getDateforID()
+            val DateID = appdata.sentdataDAO().getDateID(ID)
             val information = appdata.sentdataDAO().getInformation(ID)
             CoroutineScope(Dispatchers.Main).launch {
                 Toast.makeText(this@HistoyActivity, information, Toast.LENGTH_SHORT).show()
             }
             launch(Dispatchers.Main) {
                 recyclerView.layoutManager = LinearLayoutManager(this@HistoyActivity)
-                val  itemAdapter = Adapter(date,this@HistoyActivity,ID,dateID,getInformationForID)
+                val  itemAdapter = Adapter(date,this@HistoyActivity,DateID,information)
                 recyclerView.adapter = itemAdapter
             }
         }

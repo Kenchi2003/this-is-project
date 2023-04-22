@@ -11,7 +11,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class Adapter(private val item: List<String>,
               private val context: Context ,
-              private val ID:Int,
               private val dataForID:String,
               private val inforID:String) : RecyclerView.Adapter<Adapter.VHolder>() {
     override fun getItemCount(): Int {
@@ -49,7 +48,7 @@ class Adapter(private val item: List<String>,
         // ผลรวมความทึบเเสงที่อ่านได้ ใน Dialog
         val messageTextView = dialog.findViewById<TextView>(R.id.TextDate)
         if (messageTextView != null) {
-            messageTextView.text = "$dataForID"
+            messageTextView.text = "ข้อมูลวันที่ $dataForID"
         }
         // ปิด Dialog
         dialog.findViewById<View>(R.id.button_close)!!.setOnClickListener {
