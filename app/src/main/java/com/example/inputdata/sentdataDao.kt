@@ -28,8 +28,8 @@ interface sentdataDao {
     @Query("SELECT date FROM Sendata WHERE Id =:mid")
     fun getDateID(mid: Int): String
 
-    @Query("SELECT information FROM Sendata WHERE Id =:mid")
-    fun getInformation(mid: Int): String
+    @Query("SELECT information FROM Sendata")
+    fun getInformation(): List<String>
 
     @Query("SELECT MAX(Id) FROM Sendata")
     fun getsentid(): Int
