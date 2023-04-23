@@ -46,7 +46,7 @@
                     android:maxLines="2"
                     android:singleLine="false"
                     android:text="ข้อมูลทั่วไป\nสถานประกอบกิจการ"
-                    android:textColor="#6E18F5"
+                    android:textColor="#4B1168"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
@@ -54,13 +54,13 @@
                     android:id="@+id/IconCam"
                     android:layout_width="50dp"
                     android:layout_height="42dp"
-                    android:background="@drawable/custom_input2"
-                    android:elevation="10dp"
-                    android:paddingLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:paddingRight="5dp"
+                    android:background="@drawable/custom_input2"
+                    android:elevation="5dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
                     android:scaleType="centerInside"
-                    app:srcCompat="@drawable/_38619027_175949571936999_2051163570077886170_n" />
+                    app:srcCompat="@drawable/camera" />
 
             </LinearLayout>
 
@@ -73,7 +73,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="10dp"
                 android:text="กำลังการผลิตไอน้ำ"
-                android:textColor="#6E18F5"
+                android:textColor="#4B1168"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -104,7 +104,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="10dp"
                 android:text="ประเภทเชื้อเพลิง"
-                android:textColor="#6E18F5"
+                android:textColor="#4B1168"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -119,6 +119,7 @@
                 android:background="@drawable/custom_input2"
                 android:elevation="10dp"
                 android:gravity="center"
+                android:textAlignment="center"
                 android:textSize="24sp" />
 
             <EditText
@@ -143,7 +144,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:text="ระบบควาบคุมเขม่าควัน"
-                android:textColor="#6E18F5"
+                android:textColor="#4B1168"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -200,7 +201,7 @@
                 android:background="@drawable/strok1"
                 android:gravity="center"
                 android:text="วันที่ :"
-                android:textColor="#6E18F5"
+                android:textColor="#4B1168"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -362,7 +363,7 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="ข้อมูลที่บันทึกล่าสุด"
-                    android:textColor="#6E18F5"
+                    android:textColor="#4B1168"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
