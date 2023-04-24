@@ -181,7 +181,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun spin(){
-        val item = listOf("เลือกประเภทเชื้อเพลิง","ใช้น้ำมันดีเซลเป็นเชื้อเพลิง","ใช้น้ำมันเตาเป็นเชื้อเพลิง","ใช้ถ่านหิน","ใช้เศษไม้ฟืนเป็นเชื้อเพลิง","อื่น ๆ")
+        val item = listOf("เลือกประเภทเชื้อเพลิง",
+            "ใช้น้ำมันดีเซลเป็นเชื้อเพลิง",
+            "ใช้น้ำมันเตาเป็นเชื้อเพลิง",
+            "ใช้ถ่านหิน",
+            "ใช้เศษไม้ฟืนเป็นเชื้อเพลิง",
+            "ใช้กะลาปาล์มเป็นเชื้อเพลิง",
+            "ใช้กะลามะพร้าวเป็นเชื้อเพลิง",
+            "ใช้เเกลบ",
+            "อื่น ๆ")
         spinpower.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if(parent?.getItemAtPosition(position).toString() == "อื่น ๆ"){
