@@ -1,45 +1,64 @@
 package com.example.inputdata
 
+
+import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
-import androidx.room.Room
+import androidx.appcompat.app.AppCompatActivity
+import com.example.inputdata.databinding.ActivityLoglinBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+
 class Loglin : AppCompatActivity() {
     private lateinit var db: AppDatabase
 
-    private lateinit var mUser: EditText
-    private lateinit var mPassword: EditText
-    private lateinit var mWarning: TextView
+    private lateinit var binding: ActivityLoglinBinding
 
-    private lateinit var BTLog: Button
-
+    override fun onDestroy() {
+        super.onDestroy()
+        db.close()
+    }
+    @SuppressLint("MissingInflatedId", "UseSwitchCompatOrMaterialCode", "CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_loglin)
+        binding = ActivityLoglinBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        mUser = findViewById(R.id.Name)
-        mPassword = findViewById(R.id.Password)
-        mWarning = findViewById(R.id.warn)
+        db = AppDatabase.AppDatabaseSingleton.getInstance(applicationContext)
 
-        BTLog = findViewById(R.id.logs)
-        db = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, "User.db"
-        ).build()
+        val OldUser = getSharedPreferences("MyP", MODE_PRIVATE)
+        val editter = OldUser.edit()
+        binding.apply {
+            val mOldUser = OldUser.getString("user", null).toString()
+            val mOldPassword = OldUser.getString("pass", null).toString()
+            GlobalScope.launch(Dispatchers.IO) {
+                val check = db.userDAO().checkLogin(mOldUser, mOldPassword)
+                withContext(Dispatchers.Main) {
+                    if (check) {
+                        val intent = Intent(this@Loglin,MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                }
+            }
+        }
+
+        val mUser = findViewById<EditText>(R.id.Name)
+        val mPassword = findViewById<EditText>(R.id.Password)
+        val mWarning = findViewById<TextView>(R.id.warn)
+
+        val BTLog = findViewById<Button>(R.id.logs)
+
         GlobalScope.launch {
             val contact = User(0, "John", "1","1")
             db.userDAO().insertUser(contact)
         }
-
         BTLog.setOnClickListener {
             val User = mUser.text.toString()
             val Passwors = mPassword.text.toString()
@@ -48,7 +67,11 @@ class Loglin : AppCompatActivity() {
 
                 withContext(Dispatchers.Main) {
                     if (check) {
-                        Toast.makeText(this@Loglin, "Welcome", Toast.LENGTH_SHORT).show()
+                        editter.apply{
+                            putString("user", User)
+                            putString("pass", Passwors)
+                            apply()
+                        }
                         val intent = Intent(this@Loglin,MainActivity::class.java)
                         val select1 = User
                         intent.putExtra("MyKey1",select1)
