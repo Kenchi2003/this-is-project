@@ -18,8 +18,10 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
+import androidx.room.Room
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.*
+
 import java.io.File
 import java.io.FileOutputStream
 import java.time.ZoneId
@@ -63,6 +65,8 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        appdata = AppDatabase.AppDatabaseSingleton.getInstance(applicationContext)
 
 
         INum = findViewById(R.id.Iwalther)
@@ -136,6 +140,7 @@ class MainActivity : AppCompatActivity() {
         plusdata.setOnClickListener {
             val Oldtext = mTextshow.text.toString()
             senInfor(Oldtext)
+            value()
 
         }
         Sendinformation.setOnClickListener {
@@ -161,7 +166,7 @@ class MainActivity : AppCompatActivity() {
         coroutineScope.cancel()
     }
     private fun senInfor(OldText: String) {
-        appdata = AppDatabase.AppDatabaseSingleton.getInstance(applicationContext)
+
 
         val mHR = spinHR.selectedItem.toString()
         val mMIN = spinMin.selectedItem.toString()
@@ -196,7 +201,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun spin(){
-        val item = listOf("เลือกประเภทเชื้อเพลิง","ใช้น้ำมันดีเซลเป็นเชื้อเพลิง","ใช้น้ำมันเตาเป็นเชื้อเพลิง","ใช้ถ่านหิน","ใช้เศษไม้ฟืนเป็นเชื้อเพลิง","อื่น ๆ")
+        val item = listOf("เลือกประเภทเชื้อเพลิง",
+            "ใช้น้ำมันดีเซลเป็นเชื้อเพลิง",
+            "ใช้น้ำมันเตาเป็นเชื้อเพลิง",
+            "ใช้ถ่านหิน",
+            "ใช้เศษไม้ฟืนเป็นเชื้อเพลิง",
+            "ใช้กะลาปาล์มเป็นเชื้อเพลิง",
+            "ใช้กะลามะพร้าวเป็นเชื้อเพลิง",
+            "อื่น ๆ")
         spinpower.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if(parent?.getItemAtPosition(position).toString() == "อื่น ๆ"){
@@ -289,6 +301,14 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 }
+            }
+        }
+    }
+    private fun value(){
+        GlobalScope.launch(Dispatchers.IO) {
+            val value = appdata.informationDAO().getvalue()
+            withContext(Dispatchers.Main) {
+                Result1.text = value
             }
         }
     }

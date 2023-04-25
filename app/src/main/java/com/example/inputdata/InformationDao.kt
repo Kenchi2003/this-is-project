@@ -18,5 +18,8 @@ interface InformationDao {
     @Query("SELECT MAX(userId) FROM infor")
     fun getinforid(): Int
 
+    @Query("SELECT MAX(value) FROM infor")
+    fun getvalue(): String
+
 
 }

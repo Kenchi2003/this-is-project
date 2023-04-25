@@ -1,5 +1,6 @@
 package com.example.inputdata
 
+import android.media.Image
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
