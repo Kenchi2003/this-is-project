@@ -2,12 +2,15 @@ package com.example.inputdata
 
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.icu.text.SimpleDateFormat
 import android.icu.util.BuddhistCalendar
 import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
 import android.view.ViewGroup
@@ -15,12 +18,10 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
-import androidx.room.Room
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import java.io.File
+import java.io.FileOutputStream
 import java.time.ZoneId
 import java.time.chrono.ThaiBuddhistDate
 import java.time.format.DateTimeFormatter
@@ -36,7 +37,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var Result1: TextView
     private lateinit var Result2: TextView
     private lateinit var viewDate: TextView
+
     private lateinit var Camera: ImageButton
+    private val coroutineScope = CoroutineScope(Dispatchers.Main)
+    private var REQUEST_IMAGE_CAPTURE = 1
+
     private lateinit var Sendinformation: ImageButton
     private lateinit var plusdata: Button
     private lateinit var mRadioGroup: RadioGroup
@@ -48,6 +53,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mTextshow: TextView
     private lateinit var editText: EditText
 
+    private var IMAGE: String = ""
 
     private var SMOKE: String = ""
 
@@ -139,11 +145,23 @@ class MainActivity : AppCompatActivity() {
         Result2.text = ""
 
     }
+    private fun saveImage(imageBitmap: Bitmap): String {
+        val file = File(
+            getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+            "${System.currentTimeMillis()}.jpg"
+        )
+        val outputStream = FileOutputStream(file)
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+        outputStream.flush()
+        outputStream.close()
+        return file.absolutePath
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        coroutineScope.cancel()
+    }
     private fun senInfor(OldText: String) {
-        appdata = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, "User.db"
-        ).build()
+        appdata = AppDatabase.AppDatabaseSingleton.getInstance(applicationContext)
 
         val mHR = spinHR.selectedItem.toString()
         val mMIN = spinMin.selectedItem.toString()
@@ -175,9 +193,6 @@ class MainActivity : AppCompatActivity() {
                 })
             }
         }
-    }
-    private fun checkIDradio(){
-
     }
 
     private fun spin(){
@@ -229,14 +244,22 @@ class MainActivity : AppCompatActivity() {
         spinvalue.adapter = adapter
     }
     private fun openCamera() {
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivity(intent)
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+    }
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            CoroutineScope(Dispatchers.IO).launch {
+                val imageBitmap = data?.extras?.get("data") as Bitmap
+                val imagePath = saveImage(imageBitmap)
+                IMAGE = imagePath
+            }
+        }
     }
     private fun showCurvedAlertDialog(SMOKE:String,DATE1:String) {
-        appdata = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, "User.db"
-        ).build()
+        appdata = AppDatabase.AppDatabaseSingleton.getInstance(applicationContext)
         val Inum = INum.toString()
         val Power = spinpower.selectedItem.toString()
         val SMOKE = SMOKE
@@ -244,8 +267,9 @@ class MainActivity : AppCompatActivity() {
         val INFOR = mTextshow.text.toString()
         val result1 = Result1.text.toString()
         val result2 = Result2.text.toString()
+        val Image = IMAGE
         CoroutineScope(Dispatchers.IO).launch {
-            val infor = sentdata(0, Inum, Power, SMOKE, DATE, INFOR, result1, result2)
+            val infor = sentdata(0, Inum, Power, SMOKE, DATE, INFOR, result1, result2, Image)
             appdata.sentdataDAO().insertsentdata(infor)
 
             // สร้าง Handler บน Main Thread เพื่อปิด Dialog

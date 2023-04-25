@@ -32,5 +32,6 @@ data class sentdata(
     val date: String,//วันที่
     val information: String,
     val resultopacity: String,//ผลรวมความทึบแสง
-    val numsavetime: String//จำนวนครั้งที่จดบันทึก
+    val numsavetime: String,//จำนวนครั้งที่จดบันทึก
+    val image: String
 )

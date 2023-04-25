@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "a4abb5ea1f917884e767c6e6dfd2cd57",
+    "identityHash": "7eb793d925c49b7e9c7a8f5c6ce65129",
     "entities": [
       {
         "tableName": "users",
@@ -43,12 +43,12 @@
         "foreignKeys": []
       },
       {
-        "tableName": "Information",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `Hr` TEXT NOT NULL, `Min` TEXT NOT NULL, `Sec` TEXT NOT NULL, `value` TEXT NOT NULL)",
+        "tableName": "infor",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `Hr` TEXT, `Min` TEXT, `Sec` TEXT, `value` TEXT)",
         "fields": [
           {
-            "fieldPath": "id",
-            "columnName": "id",
+            "fieldPath": "userId",
+            "columnName": "userId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -56,23 +56,91 @@
             "fieldPath": "Hr",
             "columnName": "Hr",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "Min",
             "columnName": "Min",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "Sec",
             "columnName": "Sec",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "value",
             "columnName": "value",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "userId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Sendata",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `inum` TEXT NOT NULL, `fuel` TEXT NOT NULL, `CtrlSmoke` TEXT NOT NULL, `date` TEXT NOT NULL, `information` TEXT NOT NULL, `resultopacity` TEXT NOT NULL, `numsavetime` TEXT NOT NULL, `image` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "Id",
+            "columnName": "Id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "inum",
+            "columnName": "inum",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fuel",
+            "columnName": "fuel",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CtrlSmoke",
+            "columnName": "CtrlSmoke",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "information",
+            "columnName": "information",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "resultopacity",
+            "columnName": "resultopacity",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "numsavetime",
+            "columnName": "numsavetime",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "image",
+            "columnName": "image",
             "affinity": "TEXT",
             "notNull": true
           }
@@ -80,7 +148,7 @@
         "primaryKey": {
           "autoGenerate": true,
           "columnNames": [
-            "id"
+            "Id"
           ]
         },
         "indices": [],
@@ -90,7 +158,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a4abb5ea1f917884e767c6e6dfd2cd57')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7eb793d925c49b7e9c7a8f5c6ce65129')"
     ]
   }
 }
