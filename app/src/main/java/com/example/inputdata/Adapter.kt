@@ -12,7 +12,9 @@ class Adapter(
     private val item: List<String>,
     private val context: Context,
     private val dataForID: String,
-    private val inforID: List<String>
+    private val inforID: List<String>,
+    private val result: String,
+    private val result1: String
 ) : RecyclerView.Adapter<Adapter.VHolder>() {
 
     override fun getItemCount(): Int {
@@ -53,6 +55,12 @@ class Adapter(
 
         val show = dialog?.findViewById<TextView>(R.id.ShowResalt)!!
         show?.text = "${inforID[position]}"
+
+        val value = dialog?.findViewById<TextView>(R.id.TextShowResalt1)
+        value?.text = "${result[position]}"
+
+        val value1 = dialog?.findViewById<TextView>(R.id.TextShowResalt2)
+        value1?.text = "${result1[position]}"
 
         dialog.findViewById<View>(R.id.button_close)?.setOnClickListener {
             dialog.dismiss()

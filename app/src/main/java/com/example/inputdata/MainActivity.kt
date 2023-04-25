@@ -18,6 +18,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
+import androidx.room.Room
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.*
 import java.io.File
@@ -137,8 +138,8 @@ class MainActivity : AppCompatActivity() {
 
         plusdata.setOnClickListener {
             val Oldtext = mTextshow.text.toString()
-            value()
             senInfor(Oldtext)
+            value()
 
         }
         Sendinformation.setOnClickListener {
@@ -303,12 +304,9 @@ class MainActivity : AppCompatActivity() {
     }
     private fun value(){
         GlobalScope.launch(Dispatchers.IO) {
-            val ID = appdata.informationDAO().getinforid()
-            val value = appdata.informationDAO().getvalue(ID)
+            val value = appdata.informationDAO().getvalue()
             withContext(Dispatchers.Main) {
-                val currentValue = Result1.text.toString()
-                val total =currentValue + value.toInt()
-                Result1.text = total
+                Result1.text = value
             }
         }
     }
