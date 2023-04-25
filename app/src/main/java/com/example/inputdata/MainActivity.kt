@@ -17,10 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import java.time.ZoneId
 import java.time.chrono.ThaiBuddhistDate
 import java.time.format.DateTimeFormatter
@@ -129,6 +126,7 @@ class MainActivity : AppCompatActivity() {
 
         plusdata.setOnClickListener {
             val Oldtext = mTextshow.text.toString()
+            value()
             senInfor(Oldtext)
 
         }
@@ -188,7 +186,6 @@ class MainActivity : AppCompatActivity() {
             "ใช้เศษไม้ฟืนเป็นเชื้อเพลิง",
             "ใช้กะลาปาล์มเป็นเชื้อเพลิง",
             "ใช้กะลามะพร้าวเป็นเชื้อเพลิง",
-            "ใช้เเกลบ",
             "อื่น ๆ")
         spinpower.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -273,6 +270,22 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 }
+            }
+        }
+    }
+    private fun value(){
+        appdata = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java, "User.db"
+        ).build()
+
+        GlobalScope.launch(Dispatchers.IO) {
+            val ID = appdata.informationDAO().getinforid()
+            val value = appdata.informationDAO().getvalue(ID)
+            withContext(Dispatchers.Main) {
+                val currentValue = Result1.text.toString()
+                val total =currentValue + value.toInt()
+                Result1.text = total
             }
         }
     }
