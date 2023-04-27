@@ -18,10 +18,8 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
-import androidx.room.Room
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.*
-
 import java.io.File
 import java.io.FileOutputStream
 import java.time.ZoneId
@@ -138,9 +136,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         plusdata.setOnClickListener {
+
             val Oldtext = mTextshow.text.toString()
-            senInfor(Oldtext)
-            value()
+            val result = Result1.text.toString()
+            senInfor(Oldtext,result)
 
         }
         Sendinformation.setOnClickListener {
@@ -165,7 +164,7 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         coroutineScope.cancel()
     }
-    private fun senInfor(OldText: String) {
+    private fun senInfor(OldText: String,result: String) {
 
 
         val mHR = spinHR.selectedItem.toString()
@@ -181,6 +180,7 @@ class MainActivity : AppCompatActivity() {
 
             withContext(Dispatchers.Main) {
                 val stringBuilder = StringBuilder()
+                val IntBuilder = StringBuilder()
                 dataList.observe(this@MainActivity, androidx.lifecycle.Observer { liveData ->
                     val information = liveData
                     val formattedText = String.format("%s : %s : %s = %s",
@@ -195,11 +195,15 @@ class MainActivity : AppCompatActivity() {
                     }
                     stringBuilder.append(TextShow)
                     mTextshow.text = stringBuilder.toString()
+                    val intValue = mValue.toIntOrNull() ?: 0
+                    val resultValue = result.toIntOrNull() ?: 0
+                    val textResult = intValue + resultValue
+                    IntBuilder.append(textResult)
+                    Result1.text = IntBuilder.toString()
                 })
             }
         }
     }
-
     private fun spin(){
         val item = listOf("เลือกประเภทเชื้อเพลิง",
             "ใช้น้ำมันดีเซลเป็นเชื้อเพลิง",
@@ -301,14 +305,6 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 }
-            }
-        }
-    }
-    private fun value(){
-        GlobalScope.launch(Dispatchers.IO) {
-            val value = appdata.informationDAO().getvalue()
-            withContext(Dispatchers.Main) {
-                Result1.text = value
             }
         }
     }
