@@ -31,6 +31,9 @@ interface sentdataDao {
     @Query("SELECT information FROM Sendata")
     fun getInformation(): List<String>
 
+    @Query("SELECT image FROM Sendata")
+    fun getImage(): List<String>
+
     @Query("SELECT MAX(Id) FROM Sendata")
     fun getsentid(): Int
 }

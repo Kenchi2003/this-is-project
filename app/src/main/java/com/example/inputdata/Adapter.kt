@@ -1,18 +1,22 @@
 package com.example.inputdata
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+
 class Adapter(
     private val item: List<String>,
     private val context: Context,
     private val dataForID: String,
-    private val inforID: List<String>
+    private val inforID: List<String>,
+    private val Image: List<String>
 ) : RecyclerView.Adapter<Adapter.VHolder>() {
 
     override fun getItemCount(): Int {
@@ -36,6 +40,7 @@ class Adapter(
         val imageView: AppCompatImageButton = v.findViewById(R.id.imageButton)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun showCurvedAlertDialog(position: Int) {
         inforID.size
         val dialog: androidx.appcompat.app.AlertDialog? = MaterialAlertDialogBuilder(context, R.style.RoundedMaterialDialog)
@@ -52,7 +57,10 @@ class Adapter(
         messageTextView?.text = "วันที่ ${item[position]}"
 
         val show = dialog?.findViewById<TextView>(R.id.ShowResalt)!!
-        show?.text = "${inforID[position]}"
+        show.text = "${inforID[position]}"
+
+        val image = dialog?.findViewById<ImageView>(R.id.imageView)
+        val imagePath = Image[position]
 
         dialog.findViewById<View>(R.id.button_close)?.setOnClickListener {
             dialog.dismiss()
