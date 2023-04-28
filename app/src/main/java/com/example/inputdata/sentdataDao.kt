@@ -36,4 +36,10 @@ interface sentdataDao {
 
     @Query("SELECT MAX(Id) FROM Sendata")
     fun getsentid(): Int
+
+    @Query("SELECT resultopacity FROM Sendata")
+    fun getresultopacity(): List<String>
+
+    @Query("SELECT numsavetime FROM Sendata")
+    fun getnumsavetime(): List<String>
 }

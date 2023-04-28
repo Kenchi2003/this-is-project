@@ -18,15 +18,15 @@ class HistoyActivity : AppCompatActivity() {
         appdata = AppDatabase.AppDatabaseSingleton.getInstance(applicationContext)
 
         GlobalScope.launch(Dispatchers.IO) {
-            val ID = appdata.sentdataDAO().getID()
             val date: List<String> = appdata.sentdataDAO().getDateforID()
-            val DateID = appdata.sentdataDAO().getDateID(ID)
             val information: List<String> = appdata.sentdataDAO().getInformation()
             val image: List<String> = appdata.sentdataDAO().getImage()
+            val resultopacity: List<String> = appdata.sentdataDAO().getresultopacity()
+            val numsavetime: List<String> = appdata.sentdataDAO().getnumsavetime()
 
             launch(Dispatchers.Main) {
                 recyclerView.layoutManager = LinearLayoutManager(this@HistoyActivity)
-                val  itemAdapter = Adapter(date,this@HistoyActivity,DateID,information,image)
+                val  itemAdapter = Adapter(date,this@HistoyActivity,information,resultopacity,numsavetime,image)
                 recyclerView.adapter = itemAdapter
             }
         }

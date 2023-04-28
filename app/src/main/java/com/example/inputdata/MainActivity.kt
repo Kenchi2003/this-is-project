@@ -138,11 +138,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         plusdata.setOnClickListener {
-
             val Oldtext = mTextshow.text.toString()
             val result = Result1.text.toString()
             senInfor(Oldtext,result)
-
         }
         Sendinformation.setOnClickListener {
             showCurvedAlertDialog(SMOKE,DATE1 = formatdate)
@@ -164,7 +162,6 @@ class MainActivity : AppCompatActivity() {
         coroutineScope.cancel()
     }
     private fun senInfor(OldText: String,result: String) {
-
 
         val mHR = spinHR.selectedItem.toString()
         val mMIN = spinMin.selectedItem.toString()
@@ -309,6 +306,16 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 }
+            }
+        }
+    }
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openCamera()
+            } else {
+                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show()
             }
         }
     }

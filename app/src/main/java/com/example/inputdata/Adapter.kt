@@ -10,12 +10,15 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.bumptech.glide.Glide
+
 
 class Adapter(
     private val item: List<String>,
     private val context: Context,
-    private val dataForID: String,
     private val inforID: List<String>,
+    private val result: List<String>,
+    private val result1: List<String>,
     private val Image: List<String>
 ) : RecyclerView.Adapter<Adapter.VHolder>() {
 
@@ -59,8 +62,19 @@ class Adapter(
         val show = dialog?.findViewById<TextView>(R.id.ShowResalt)!!
         show.text = "${inforID[position]}"
 
+        // set image to ImageView in dialog
         val image = dialog?.findViewById<ImageView>(R.id.imageView)
         val imagePath = Image[position]
+        Glide.with(context)
+            .load(imagePath)
+            .into(image!!)
+
+
+        val value = dialog?.findViewById<TextView>(R.id.TextShowResalt1)
+        value?.text = "${result[position]}"
+
+        val value1 = dialog?.findViewById<TextView>(R.id.TextShowResalt2)
+        value1?.text = "${result1[position]}"
 
         dialog.findViewById<View>(R.id.button_close)?.setOnClickListener {
             dialog.dismiss()
