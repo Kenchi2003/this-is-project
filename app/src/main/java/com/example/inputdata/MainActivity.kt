@@ -4,6 +4,7 @@ package com.example.inputdata
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.icu.text.SimpleDateFormat
 import android.icu.util.BuddhistCalendar
@@ -17,6 +18,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.*
@@ -40,7 +43,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var Camera: ImageButton
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
-    private var REQUEST_IMAGE_CAPTURE = 1
+    private val CAMERA_PERMISSION_CODE = 1
+    private val REQUEST_IMAGE_CAPTURE = 2
 
     private lateinit var Sendinformation: ImageButton
     private lateinit var plusdata: Button
@@ -259,8 +263,14 @@ class MainActivity : AppCompatActivity() {
         spinvalue.adapter = adapter
     }
     private fun openCamera() {
-        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+            != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA),
+                CAMERA_PERMISSION_CODE)
+        } else {
+            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+        }
     }
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -304,6 +314,16 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 }
+            }
+        }
+    }
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == CAMERA_PERMISSION_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openCamera()
+            } else {
+                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show()
             }
         }
     }

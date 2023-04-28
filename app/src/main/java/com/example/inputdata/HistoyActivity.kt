@@ -22,8 +22,8 @@ class HistoyActivity : AppCompatActivity() {
             val date: List<String> = appdata.sentdataDAO().getDateforID()
             val DateID = appdata.sentdataDAO().getDateID(ID)
             val information: List<String> = appdata.sentdataDAO().getInformation()
-            val resultopacity = appdata.sentdataDAO().getresultopacity()
-            val numsavetime = appdata.sentdataDAO().getnumsavetime()
+            val resultopacity: List<String> = appdata.sentdataDAO().getresultopacity()
+            val numsavetime: List<String> = appdata.sentdataDAO().getnumsavetime()
 
             launch(Dispatchers.Main) {
                 recyclerView.layoutManager = LinearLayoutManager(this@HistoyActivity)

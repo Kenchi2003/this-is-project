@@ -13,8 +13,8 @@ class Adapter(
     private val context: Context,
     private val dataForID: String,
     private val inforID: List<String>,
-    private val result: String,
-    private val result1: String
+    private val result: List<String>,
+    private val result1: List<String>
 ) : RecyclerView.Adapter<Adapter.VHolder>() {
 
     override fun getItemCount(): Int {
