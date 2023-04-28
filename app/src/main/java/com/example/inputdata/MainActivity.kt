@@ -1,22 +1,24 @@
 package com.example.inputdata
 
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.icu.text.SimpleDateFormat
 import android.icu.util.BuddhistCalendar
 import android.icu.util.Calendar
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.*
@@ -40,7 +42,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var Camera: ImageButton
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
-    private var REQUEST_IMAGE_CAPTURE = 1
+    private var REQUEST_IMAGE_CAPTURE = 1000
+    private val CAMERA_PERMISSION_REQUEST_CODE = 101
 
     private lateinit var Sendinformation: ImageButton
     private lateinit var plusdata: Button
@@ -57,7 +60,6 @@ class MainActivity : AppCompatActivity() {
 
     private var SMOKE: String = ""
 
-    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SimpleDateFormat", "WeekBasedYear", "SetTextI18n", "MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -145,9 +147,6 @@ class MainActivity : AppCompatActivity() {
         Sendinformation.setOnClickListener {
             showCurvedAlertDialog(SMOKE,DATE1 = formatdate)
         }
-        Result1.text = ""
-        Result2.text = ""
-
     }
     private fun saveImage(imageBitmap: Bitmap): String {
         val file = File(
@@ -204,6 +203,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun spin(){
         val item = listOf("เลือกประเภทเชื้อเพลิง",
             "ใช้น้ำมันดีเซลเป็นเชื้อเพลิง",
@@ -260,8 +260,12 @@ class MainActivity : AppCompatActivity() {
         spinvalue.adapter = adapter
     }
     private fun openCamera() {
-        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+        } else {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_REQUEST_CODE)
+        }
     }
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
