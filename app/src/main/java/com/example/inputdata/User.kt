@@ -1,6 +1,5 @@
 package com.example.inputdata
 
-import android.media.Image
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -21,7 +20,6 @@ data class Information(
     val Min: String?,//นาที
     val Sec: String?,//วินาที
     val value: String?//ค่าที่วัดได้
-
 )
 @Entity(tableName = "Sendata")
 data class sentdata(
