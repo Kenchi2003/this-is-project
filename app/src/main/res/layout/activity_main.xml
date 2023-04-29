@@ -135,7 +135,8 @@
                 android:ems="10"
                 android:hint="ระบุ"
                 android:inputType="textPersonName"
-                android:paddingLeft="10dp" />
+                android:paddingLeft="10dp"
+                android:textColor="#000" />
 
             <TextView
                 android:id="@+id/TextDate"
@@ -439,7 +440,6 @@
                     android:background="@drawable/custom_input2"
                     android:elevation="5dp"
                     android:gravity="center"
-                    android:text="fg"
                     android:textColor="#000"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"

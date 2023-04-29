@@ -12,15 +12,6 @@ data class User(
     val user: String,
     val password: String
 )
-@Entity(tableName = "infor")
-data class Information(
-    @PrimaryKey(autoGenerate = true)
-    var userId: Int,
-    val Hr: String?,//ชั่วโมง
-    val Min: String?,//นาที
-    val Sec: String?,//วินาที
-    val value: String?//ค่าที่วัดได้
-)
 @Entity(tableName = "Sendata")
 data class sentdata(
     @PrimaryKey(autoGenerate = true)
