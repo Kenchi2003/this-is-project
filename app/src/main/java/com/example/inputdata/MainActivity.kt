@@ -138,11 +138,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         plusdata.setOnClickListener {
-
             val Oldtext = mTextshow.text.toString()
             val result = Result1.text.toString()
             senInfor(Oldtext,result)
-
         }
         Sendinformation.setOnClickListener {
             showCurvedAlertDialog(SMOKE,DATE1 = formatdate)

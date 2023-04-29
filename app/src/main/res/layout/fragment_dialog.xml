@@ -148,6 +148,7 @@
         android:elevation="5dp"
         android:gravity="center"
         android:text="TextView"
+        android:textColor="#000"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

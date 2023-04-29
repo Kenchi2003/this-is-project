@@ -1,20 +1,25 @@
 package com.example.inputdata
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.bumptech.glide.Glide
+
+
 class Adapter(
     private val item: List<String>,
     private val context: Context,
-    private val dataForID: String,
     private val inforID: List<String>,
     private val result: List<String>,
-    private val result1: List<String>
+    private val result1: List<String>,
+    private val Image: List<String>
 ) : RecyclerView.Adapter<Adapter.VHolder>() {
 
     override fun getItemCount(): Int {
@@ -38,6 +43,7 @@ class Adapter(
         val imageView: AppCompatImageButton = v.findViewById(R.id.imageButton)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun showCurvedAlertDialog(position: Int) {
         inforID.size
         val dialog: androidx.appcompat.app.AlertDialog? = MaterialAlertDialogBuilder(context, R.style.RoundedMaterialDialog)
@@ -54,7 +60,15 @@ class Adapter(
         messageTextView?.text = "วันที่ ${item[position]}"
 
         val show = dialog?.findViewById<TextView>(R.id.ShowResalt)!!
-        show?.text = "${inforID[position]}"
+        show.text = "${inforID[position]}"
+
+        // set image to ImageView in dialog
+        val image = dialog?.findViewById<ImageView>(R.id.imageView)
+        val imagePath = Image[position]
+        Glide.with(context)
+            .load(imagePath)
+            .into(image!!)
+
 
         val value = dialog?.findViewById<TextView>(R.id.TextShowResalt1)
         value?.text = "${result[position]}"
