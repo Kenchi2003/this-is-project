@@ -179,6 +179,7 @@ class MainActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 val stringBuilder = StringBuilder()
                 val IntBuilder = StringBuilder()
+                val IntBuilder1 = StringBuilder()
                 dataList.observe(this@MainActivity, androidx.lifecycle.Observer { liveData ->
                     val information = liveData
                     val formattedText = String.format("%s : %s : %s = %s",
@@ -193,11 +194,14 @@ class MainActivity : AppCompatActivity() {
                     }
                     stringBuilder.append(TextShow)
                     mTextshow.text = stringBuilder.toString()
+                    val textResult1 = OldText.split("\n").size
                     val intValue = mValue.toIntOrNull() ?: 0
                     val resultValue = result.toIntOrNull() ?: 0
                     val textResult = intValue + resultValue
                     IntBuilder.append(textResult)
                     Result1.text = IntBuilder.toString()
+                    IntBuilder1.append(textResult1)
+                    Result2.text = IntBuilder1.toString()
                 })
             }
         }
