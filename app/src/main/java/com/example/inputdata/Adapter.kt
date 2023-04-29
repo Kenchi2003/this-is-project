@@ -9,9 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.bumptech.glide.Glide
-//rgehetyjyjjy
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class Adapter(
     private val item: List<String>,
@@ -81,3 +80,4 @@ class Adapter(
         }
     }
 }
+

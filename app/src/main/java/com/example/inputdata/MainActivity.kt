@@ -13,6 +13,7 @@ import android.icu.util.Calendar
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -310,16 +311,6 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 }
-            }
-        }
-    }
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                openCamera()
-            } else {
-                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show()
             }
         }
     }
