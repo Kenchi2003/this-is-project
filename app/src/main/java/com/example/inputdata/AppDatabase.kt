@@ -10,10 +10,9 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 
-@Database(entities = [User::class , Information::class , sentdata::class], version = 2)
+@Database(entities = [User::class , sentdata::class], version = 2)
 abstract class AppDatabase(): RoomDatabase() {
     abstract fun userDAO(): UserDao
-    abstract fun informationDAO(): InformationDao
     abstract fun sentdataDAO(): sentdataDao
 
     companion object{

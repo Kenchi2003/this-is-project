@@ -19,7 +19,6 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.LiveData
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.*
 import java.io.File
@@ -99,6 +98,7 @@ class MainActivity : AppCompatActivity() {
                 SMOKE = Smok.text.toString()
             }
         }
+        val inforList = arrayListOf<Modelinfor>()
 
 
         //วันที่
@@ -136,12 +136,30 @@ class MainActivity : AppCompatActivity() {
         Camera.setOnClickListener {
             openCamera()
         }
-
+        var textshow = ""
+        var textValue = 0
         plusdata.setOnClickListener {
-            val Oldtext = mTextshow.text.toString()
-            val result = Result1.text.toString()
-            senInfor(Oldtext,result)
+            val mHR = spinHR.selectedItem.toString()
+            val mMIN = spinMin.selectedItem.toString()
+            val mSEC = spinsec.selectedItem.toString()
+            val mValue = spinvalue.selectedItem.toString()
+
+            inforList.add(Modelinfor(mHR, mMIN, mSEC, mValue))
+            val cout = inforList.size
+            for (i in inforList) {
+                val mHR = i.hr
+                val mMIN = i.min
+                val mSEC = i.sec
+                val mValue = i.value
+            }
+            textshow += ("${mHR } : ${mMIN} : ${mSEC} = ${mValue} \n")
+            mTextshow.text = textshow
+            val mResult =((mValue.toInt() + textValue).toString())
+            Result1.text = mResult
+            textValue = mResult.toInt()
+            Result2.text = "${cout}"
         }
+
         Sendinformation.setOnClickListener {
             showCurvedAlertDialog(SMOKE,DATE1 = formatdate)
         }
@@ -160,45 +178,6 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         coroutineScope.cancel()
-    }
-    private fun senInfor(OldText: String,result: String) {
-
-        val mHR = spinHR.selectedItem.toString()
-        val mMIN = spinMin.selectedItem.toString()
-        val mSEC = spinsec.selectedItem.toString()
-        val mValue = spinvalue.selectedItem.toString()
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val infor = Information(0, mHR, mMIN, mSEC, mValue)
-            appdata.informationDAO().insertInformation(infor)
-            val ID = appdata.informationDAO().getinforid()
-            val dataList: LiveData<Information> = appdata.informationDAO().getDATA(ID)
-
-            withContext(Dispatchers.Main) {
-                val stringBuilder = StringBuilder()
-                val IntBuilder = StringBuilder()
-                dataList.observe(this@MainActivity, androidx.lifecycle.Observer { liveData ->
-                    val information = liveData
-                    val formattedText = String.format("%s : %s : %s = %s",
-                        information.Hr,
-                        information.Min,
-                        information.Sec,
-                        information.value)
-                    val TextShow = if (OldText.isEmpty()) {
-                        formattedText
-                    } else {
-                        "$OldText \n$formattedText"
-                    }
-                    stringBuilder.append(TextShow)
-                    mTextshow.text = stringBuilder.toString()
-                    val intValue = mValue.toIntOrNull() ?: 0
-                    val resultValue = result.toIntOrNull() ?: 0
-                    val textResult = intValue + resultValue
-                    IntBuilder.append(textResult)
-                    Result1.text = IntBuilder.toString()
-                })
-            }
-        }
     }
 
     private fun spin(){
@@ -320,3 +299,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+data class Modelinfor(
+    var hr:String,
+    var min:String,
+    var sec:String,
+    var value:String
+)
+
