@@ -22,6 +22,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
 import java.io.FileOutputStream
 import java.time.ZoneId
@@ -60,6 +63,8 @@ class MainActivity : AppCompatActivity() {
 
     private var SMOKE: String = ""
 
+    lateinit private var apiService: ApiService
+
     @SuppressLint("SimpleDateFormat", "WeekBasedYear", "SetTextI18n", "MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -67,7 +72,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         appdata = AppDatabase.AppDatabaseSingleton.getInstance(applicationContext)
-
 
         INum = findViewById(R.id.Iwalther)
         Smok = findViewById(R.id.putSmoke)
@@ -86,9 +90,9 @@ class MainActivity : AppCompatActivity() {
 
         Camera = findViewById(R.id.IconCam)
 
-
         mTextshow = findViewById(R.id.ShowResalt)
 
+        apiService = ApiService()
 
         mRadioGroup.setOnCheckedChangeListener{ group,checkedId ->
             if (checkedId == R.id.radioNoSmoke){
@@ -133,6 +137,7 @@ class MainActivity : AppCompatActivity() {
         spinMin()
         spinSec()
         spinValue()
+        getFromuserId()
 
         Camera.setOnClickListener {
             openCamera()
@@ -287,6 +292,33 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+    private fun getFromuserId(){
+        val hashMap = hashMapOf<String,String>()
+        hashMap.put("userId","1")
+        hashMap.put("i","2")
+        val call = apiService.getFromUserId(hashMap)
+        Log.d("APIddjvfo","นี้")
+
+        call.enqueue(object : Callback<List<Todos>> {
+            override fun onResponse(call: Call<List<Todos>>, response: Response<List<Todos>>) {
+                Log.d("APIddjvfo",response.body().toString())
+                if (response.isSuccessful){
+                    val  list = response.body()
+                    for(i in 0 until list!!.size) {
+                        val msg = " id: ${list[i].id} \n " +
+                                "userId: ${list[i].userId} \n " +
+                                "title: ${list[i].title} \n " +
+                                "completed: ${list[i].completed} \n "
+                    }
+                }
+            }
+            override fun onFailure(call: Call<List<Todos>>, t: Throwable) {
+                Log.d("APIddjvfo",t.message.toString())
+                t.message?.let { Log.e("API", it) }
+            }
+        })
+
     }
 }
 data class Modelinfor(
