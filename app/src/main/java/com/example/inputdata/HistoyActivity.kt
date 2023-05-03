@@ -29,6 +29,7 @@ class HistoyActivity : AppCompatActivity() {
                 val  itemAdapter = Adapter(date,this@HistoyActivity,information,resultopacity,numsavetime,image)
                 recyclerView.adapter = itemAdapter
             }
+            //rlr[rblprbkfbr
         }
     }
 }
